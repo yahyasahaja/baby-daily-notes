@@ -1,36 +1,149 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Baby Daily Notes
+
+A comprehensive mobile-friendly web application for tracking your baby's daily health metrics, built with Next.js and TypeScript.
+
+## Features
+
+### 👶 Profile Management
+- Create and manage multiple baby profiles
+- Store profile information including name, date of birth, gender, and optional profile picture
+- Switch between profiles easily
+- All data stored locally in browser storage
+
+### ⚖️ Weight Tracking
+- Record daily weight entries (once per day)
+- Quick and simple weight input
+- Visual weight trend charts (daily, weekly, monthly)
+- Weight gain analysis with daily, weekly, and monthly calculations
+- WHO growth standards integration for health status assessment
+- Automatic percentile calculation and health status evaluation
+
+### 🍼 Diaper Tracking
+- Simple counter interface for pee and poop frequency
+- Optional detailed notes including:
+  - Poop color (yellow, green, brown, red, white, black)
+  - Poop consistency (normal, mucus present, blood present)
+- Real-time pattern analysis
+- Dehydration and diarrhea risk detection
+- Visual charts showing diaper change patterns
+
+### 📊 Summary Dashboard
+- Comprehensive health insights and analytics
+- Weight trend visualization with interactive charts
+- Diaper pattern analysis
+- Health status alerts and recommendations
+- Weekly and monthly pattern summaries
+- WHO growth standards comparison
+
+### 🌍 Internationalization
+- English and Indonesian language support
+- Easy language switching in settings
+- All UI text translated for both languages
+
+### 📱 Mobile-First Design
+- Optimized for smartphone use
+- Touch-friendly interface
+- Responsive design that works on all screen sizes
+- Bottom navigation for easy thumb access
+- Safe area support for modern mobile devices
+
+## Health Insights
+
+The application provides intelligent health monitoring based on WHO growth standards and medical best practices:
+
+### Weight Analysis
+- Compares baby's weight against WHO growth percentiles
+- Provides status indicators: Normal, Underweight, Overweight, Below Standard
+- Calculates expected weight gain based on age
+- Tracks actual vs. expected weight gain patterns
+
+### Diaper Analysis
+- Monitors hydration levels through urine frequency
+- Detects potential dehydration risks
+- Analyzes stool patterns for digestive health
+- Identifies diarrhea and constipation patterns
+- Provides color-based health indicators
+
+### Alerts and Warnings
+- Dehydration warnings when urine output is low
+- Diarrhea alerts for frequent loose stools
+- Weight status alerts for concerning patterns
+- Visual indicators for immediate attention
+
+## Technology Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Charts**: Recharts
+- **Icons**: Lucide React
+- **State Management**: React Context API
+- **Data Storage**: LocalStorage
+- **Internationalization**: next-i18next
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
 
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd baby-daily-notes
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the development server:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open [http://localhost:3000](http://localhost:3000) in your mobile browser or browser with mobile view.
 
-## Learn More
+### Building for Production
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+npm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **First Time Setup**: Create a baby profile with name, date of birth, and gender
+2. **Daily Tracking**: Use the weight and diaper tabs to record daily entries
+3. **Monitor Progress**: Check the summary dashboard for health insights and trends
+4. **Settings**: Manage profiles, change language, or switch between babies
 
-## Deploy on Vercel
+## Data Privacy
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- All data is stored locally in your browser
+- No data is sent to external servers
+- Data persists between browser sessions
+- You can export/import data through browser developer tools if needed
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## WHO Growth Standards
+
+The application uses official WHO Child Growth Standards for:
+- Weight-for-age percentiles (0-24 months)
+- Separate standards for boys and girls
+- 3rd, 15th, 50th, 85th, and 97th percentile references
+- Age-appropriate weight gain expectations
+
+## Contributing
+
+This is a personal project, but suggestions and improvements are welcome!
+
+## License
+
+MIT License - feel free to use this project for your own baby tracking needs.
+
+---
+
+**Note**: This application is designed to assist with tracking and should not replace professional medical advice. Always consult with your pediatrician for health concerns.
