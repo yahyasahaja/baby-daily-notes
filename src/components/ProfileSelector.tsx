@@ -1,12 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { Profile } from '@/types';
-import { addProfile, selectProfile } from '@/store/slices/appSlice';
-import { Plus, User, Calendar, Camera } from 'lucide-react';
-import { cn } from '@/utils/cn';
+import { addProfile } from '@/store/slices/appSlice';
+import { Plus, User } from 'lucide-react';
 import { Input, RadioGroup } from '@/components/ui/Input';
 
 interface ProfileSelectorProps {

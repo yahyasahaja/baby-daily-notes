@@ -80,7 +80,7 @@ export default function WeightTracker() {
           <div className="bg-gradient-to-r from-pink-500 to-blue-500 rounded-xl p-6 text-white mb-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-pink-100 text-sm">Today's Weight</p>
+                  <p className="text-pink-100 text-sm">Today&apos;s Weight</p>
                 <p className="text-3xl font-bold">{todayWeight.weight} kg</p>
                 <p className="text-pink-100 text-sm">
                   {formatDate(todayWeight.date)}
@@ -97,7 +97,7 @@ export default function WeightTracker() {
               onClick={() => setShowAddForm(true)}
               className="mt-2 text-pink-600 font-medium hover:text-pink-700"
             >
-              Add today's weight
+              Add today&apos;s weight
             </button>
           </div>
         )}

@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import { DiaperEntry } from '@/types';
-import { Plus, Droplets, Baby } from 'lucide-react';
+import React from 'react';
+import { Droplets, Baby } from 'lucide-react';
 import { cn } from '@/utils/cn';
 
 interface QuickCounterProps {
@@ -16,7 +15,6 @@ interface QuickCounterProps {
 export default function QuickCounter({ type, count, onIncrement, onDecrement, onEdit }: QuickCounterProps) {
   const isPee = type === 'pee';
   const Icon = isPee ? Droplets : Baby;
-  const color = isPee ? 'blue' : 'amber';
   const label = isPee ? 'Pee' : 'Poop';
 
   return (

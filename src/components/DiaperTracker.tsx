@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { addDiaperEntry } from '@/store/slices/appSlice';
 import { DiaperEntry } from '@/types';
-import { Plus, Droplets, Baby, AlertTriangle, CheckCircle } from 'lucide-react';
+import { Plus, Droplets, Baby, AlertTriangle } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import { analyzeDiaperPatterns, formatTime } from '@/utils/calculations';
 import { ButtonGroup, ColorButtonGroup, Counter, Textarea, RadioGroup } from '@/components/ui/Input';
@@ -261,7 +261,7 @@ export default function DiaperTracker() {
                     <ColorButtonGroup
                       label="Poop Color"
                       value={poopColor}
-                      onChange={(value) => setPoopColor(value as any)}
+                      onChange={(value) => setPoopColor(value as 'yellow' | 'green' | 'brown' | 'red' | 'white' | 'black')}
                       options={[
                         { value: 'yellow', label: 'Yellow', color: 'yellow' },
                         { value: 'green', label: 'Green', color: 'green' },
@@ -276,7 +276,7 @@ export default function DiaperTracker() {
                       label="Poop Consistency"
                       name="consistency"
                       value={poopConsistency}
-                      onChange={(value) => setPoopConsistency(value as any)}
+                      onChange={(value) => setPoopConsistency(value as 'normal' | 'mucus' | 'blood')}
                       options={[
                         { value: 'normal', label: 'Normal' },
                         { value: 'mucus', label: 'Mucus' },

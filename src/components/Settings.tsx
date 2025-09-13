@@ -4,15 +4,14 @@ import React, { useState } from 'react';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { updateProfile, deleteProfile, selectProfile, setLanguage } from '@/store/slices/appSlice';
 import { Profile } from '@/types';
-import { User, Calendar, Trash2, Edit, Globe, LogOut } from 'lucide-react';
-import { cn } from '@/utils/cn';
+import { User, Trash2, Edit, Globe, LogOut } from 'lucide-react';
 import { Input, RadioGroup } from '@/components/ui/Input';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useI18n } from '@/context/I18nContext';
 
 export default function Settings() {
   const dispatch = useAppDispatch();
-  const { selectedProfileId, profiles, language } = useAppSelector((state) => state.app);
+  const { selectedProfileId, profiles } = useAppSelector((state) => state.app);
   const { t } = useI18n();
   const [showEditForm, setShowEditForm] = useState(false);
   const [editingProfile, setEditingProfile] = useState<Profile | null>(null);
@@ -57,10 +56,6 @@ export default function Settings() {
     if (confirm('Are you sure you want to delete this profile? This action cannot be undone.')) {
       dispatch(deleteProfile(profileId));
     }
-  };
-
-  const handleLanguageChange = (language: 'en' | 'id') => {
-    dispatch(setLanguage(language));
   };
 
   const handleLogout = () => {

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { DiaperEntry } from '@/types';
 import { 
@@ -9,7 +9,6 @@ import {
   removeDiaperEntry
 } from '@/store/slices/appSlice';
 import { Plus, Droplets, Clock, Trash2, Edit } from 'lucide-react';
-import { cn } from '@/utils/cn';
 import { formatTime } from '@/utils/calculations';
 import QuickCounter from './QuickCounter';
 

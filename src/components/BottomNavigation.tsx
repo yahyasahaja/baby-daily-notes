@@ -8,10 +8,9 @@ import { useI18n } from '@/context/I18nContext';
 
 interface BottomNavigationProps {
   activeTab?: string;
-  onTabChange?: (tab: string) => void;
 }
 
-export default function BottomNavigation({ activeTab, onTabChange }: BottomNavigationProps) {
+export default function BottomNavigation({ activeTab }: BottomNavigationProps) {
   const router = useRouter();
   const pathname = usePathname();
   const { t } = useI18n();

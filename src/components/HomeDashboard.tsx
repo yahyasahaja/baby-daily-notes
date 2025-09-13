@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useAppSelector } from '@/store/hooks';
-import { Scale, Droplets, Baby, AlertTriangle, CheckCircle, TrendingUp, Calendar } from 'lucide-react';
+import { Scale, Droplets, Baby, AlertTriangle, CheckCircle, Calendar } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import { calculateWeightGain, analyzeDiaperPatterns, formatDate } from '@/utils/calculations';
 import { getWeightStatus, calculateAgeInMonths } from '@/data/babyStandards';

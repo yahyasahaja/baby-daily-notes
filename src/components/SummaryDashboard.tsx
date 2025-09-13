@@ -3,7 +3,7 @@
 import React from 'react';
 import { useAppSelector } from '@/store/hooks';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
-import { TrendingUp, TrendingDown, AlertTriangle, CheckCircle, Scale, Droplets, Baby } from 'lucide-react';
+import { AlertTriangle, CheckCircle, Scale, Baby } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import { calculateWeightGain, analyzeDiaperPatterns, groupByWeek, groupByMonth, formatDate } from '@/utils/calculations';
 import { getWeightStatus, calculateAgeInMonths } from '@/data/babyStandards';
@@ -60,21 +60,7 @@ export default function SummaryDashboard() {
     };
   }).slice(-8); // Last 8 weeks
 
-  const monthlyData = Object.entries(groupByMonth(profileDailyRecords)).map(([month, records]) => {
-    const peeTotal = records.reduce((sum, record) => sum + record.peeCount, 0);
-    const poopTotal = records.reduce((sum, record) => sum + record.poopCount, 0);
-    const weightEntries = records.filter(r => r.weight).map(r => r.weight!);
-    const avgWeight = weightEntries.length > 0 
-      ? weightEntries.reduce((sum, w) => sum + w.weight, 0) / weightEntries.length 
-      : 0;
-
-    return {
-      month: month.split('-')[1],
-      pee: peeTotal,
-      poop: poopTotal,
-      weight: avgWeight
-    };
-  }).slice(-6); // Last 6 months
+  // Monthly data removed to fix unused variable warning
 
   return (
     <div className="p-4 pb-20">
@@ -286,7 +272,7 @@ export default function SummaryDashboard() {
             {!analysis.dehydrationRisk && !analysis.diarrheaRisk && weightStatus?.status === 'normal' && (
               <div className="p-3 bg-green-50 rounded-lg border border-green-200">
                 <p className="text-sm text-green-700">
-                  Great! Your baby's patterns look healthy. Keep up the good work!
+                  Great! Your baby&apos;s patterns look healthy. Keep up the good work!
                 </p>
               </div>
             )}
