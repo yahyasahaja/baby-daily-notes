@@ -30,7 +30,14 @@ export default function BottomNavigation({ activeTab }: BottomNavigationProps) {
 
   const isActive = (tab: typeof tabs[0]) => {
     if (activeTab) return activeTab === tab.id;
-    return pathname === tab.path;
+    
+    // Handle home page specially
+    if (tab.path === '/') {
+      return pathname === '/' || pathname === '/index.html' || pathname === '';
+    }
+    
+    // For other pages, check if pathname starts with the tab path
+    return pathname.startsWith(tab.path);
   };
 
   return (
