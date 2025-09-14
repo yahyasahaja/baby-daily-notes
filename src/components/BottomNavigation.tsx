@@ -5,6 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { Home, Weight, Baby, Heart, BarChart3, Settings } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import { useI18n } from '@/context/I18nContext';
+import { useAppSelector } from '@/store/hooks';
 
 interface BottomNavigationProps {
   activeTab?: string;
@@ -14,13 +15,18 @@ export default function BottomNavigation({ activeTab }: BottomNavigationProps) {
   const router = useRouter();
   const pathname = usePathname();
   const { t } = useI18n();
+  const selectedProfileId = useAppSelector((state) => state.app.selectedProfileId);
 
-  const tabs = [
+  // Show different tabs based on whether a profile is selected
+  const tabs = selectedProfileId ? [
     { id: 'home', icon: Home, label: t('home'), path: '/' },
     { id: 'weight', icon: Weight, label: t('weight'), path: '/weight' },
     { id: 'diaper', icon: Baby, label: t('diaper'), path: '/diaper' },
     { id: 'sick', icon: Heart, label: t('sick'), path: '/sick' },
     { id: 'summary', icon: BarChart3, label: t('summary'), path: '/summary' },
+    { id: 'settings', icon: Settings, label: t('settings'), path: '/settings' },
+  ] : [
+    { id: 'home', icon: Home, label: t('home'), path: '/' },
     { id: 'settings', icon: Settings, label: t('settings'), path: '/settings' },
   ];
 
