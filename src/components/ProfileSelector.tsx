@@ -42,7 +42,7 @@ export default function ProfileSelector({ onProfileSelect }: ProfileSelectorProp
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-blue-50 p-4">
+    <div className="bg-gradient-to-br from-pink-50 to-blue-50 p-4">
       <div className="max-w-md mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-800 mb-2">

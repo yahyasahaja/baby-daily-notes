@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { Home, Weight, Baby, BarChart3, Settings } from 'lucide-react';
+import { Home, Weight, Baby, Heart, BarChart3, Settings } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import { useI18n } from '@/context/I18nContext';
 
@@ -16,12 +16,12 @@ export default function BottomNavigation({ activeTab }: BottomNavigationProps) {
   const { t } = useI18n();
 
   const tabs = [
-    { id: 'home', icon: Home, label: t('nav.home'), path: '/' },
-    { id: 'weight', icon: Weight, label: t('nav.weight'), path: '/weight' },
-    { id: 'pee', icon: Baby, label: t('nav.pee'), path: '/pee' },
-    { id: 'poop', icon: Baby, label: t('nav.poop'), path: '/poop' },
-    { id: 'summary', icon: BarChart3, label: t('nav.summary'), path: '/summary' },
-    { id: 'settings', icon: Settings, label: t('nav.settings'), path: '/settings' },
+    { id: 'home', icon: Home, label: t('home'), path: '/' },
+    { id: 'weight', icon: Weight, label: t('weight'), path: '/weight' },
+    { id: 'diaper', icon: Baby, label: t('diaper'), path: '/diaper' },
+    { id: 'sick', icon: Heart, label: t('sick'), path: '/sick' },
+    { id: 'summary', icon: BarChart3, label: t('summary'), path: '/summary' },
+    { id: 'settings', icon: Settings, label: t('settings'), path: '/settings' },
   ];
 
   const handleTabClick = (tab: typeof tabs[0]) => {

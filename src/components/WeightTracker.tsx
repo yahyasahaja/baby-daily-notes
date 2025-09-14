@@ -114,19 +114,19 @@ export default function WeightTracker() {
                   <div className="flex justify-between">
                     <span className="text-gray-600">Status:</span>
                     <span className={cn(
-                      'font-medium',
-                      analysis.weightStatus.status === 'normal' && 'text-green-600',
-                      analysis.weightStatus.status === 'underweight' && 'text-yellow-600',
-                      analysis.weightStatus.status === 'overweight' && 'text-orange-600',
-                      analysis.weightStatus.status === 'belowStandard' && 'text-red-600',
-                      !analysis.weightStatus && 'text-gray-600'
+                      'px-2 py-1 rounded-full text-xs font-medium',
+                      analysis.weightStatus.status === 'normal' && 'bg-green-100 text-green-800',
+                      analysis.weightStatus.status === 'underweight' && 'bg-yellow-100 text-yellow-800',
+                      analysis.weightStatus.status === 'overweight' && 'bg-orange-100 text-orange-800',
+                      analysis.weightStatus.status === 'belowStandard' && 'bg-red-100 text-red-800',
+                      !analysis.weightStatus && 'bg-gray-200 text-gray-800'
                     )}>
                       {analysis.weightStatus ? analysis.weightStatus.status.replace(/([A-Z])/g, ' $1').toLowerCase() : 'Not recorded'}
                     </span>
                   </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Percentile:</span>
-                  <span className="font-medium">{analysis.weightStatus.percentile}th</span>
+                  <span className="font-bold text-gray-800">{analysis.weightStatus.percentile}th</span>
                 </div>
                 <p className="text-sm text-gray-600 mt-2">{analysis.weightStatus.message}</p>
               </div>

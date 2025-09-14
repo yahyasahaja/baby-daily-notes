@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppState, Profile, WeightEntry, DiaperEntry, DailyRecord } from '@/types';
+import { AppState, Profile, WeightEntry, DiaperEntry, DailyRecord, SickEntry } from '@/types';
 
 const initialState: AppState = {
   profiles: [],
@@ -63,7 +63,8 @@ const appSlice = createSlice({
           weight: entry,
           diaperEntries: [],
           peeCount: 0,
-          poopCount: 0
+          poopCount: 0,
+          sickEntries: []
         });
       }
     },
@@ -88,7 +89,8 @@ const appSlice = createSlice({
           date: entry.date,
           diaperEntries: [entry],
           peeCount: entry.peeCount,
-          poopCount: entry.poopCount
+          poopCount: entry.poopCount,
+          sickEntries: []
         });
       }
     },
@@ -121,6 +123,65 @@ const appSlice = createSlice({
       state.dailyRecords[profileId] = existingRecords.filter(record => record.diaperEntries.length > 0);
     },
     
+    addSickEntry: (state, action: PayloadAction<{ profileId: string; entry: SickEntry }>) => {
+      const { profileId, entry } = action.payload;
+      const existingRecords = state.dailyRecords[profileId] || [];
+      
+      // Add sick entry to all dates within the range
+      const startDate = new Date(entry.startDate);
+      const endDate = new Date(entry.endDate);
+      
+      for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+        const dateStr = d.toISOString().split('T')[0];
+        const recordIndex = existingRecords.findIndex(r => r.date === dateStr);
+        
+        if (recordIndex >= 0) {
+          // Update existing record
+          if (!state.dailyRecords[profileId][recordIndex].sickEntries) {
+            state.dailyRecords[profileId][recordIndex].sickEntries = [];
+          }
+          state.dailyRecords[profileId][recordIndex].sickEntries.push(entry);
+        } else {
+          // Create new record
+          if (!state.dailyRecords[profileId]) {
+            state.dailyRecords[profileId] = [];
+          }
+          state.dailyRecords[profileId].push({
+            date: dateStr,
+            diaperEntries: [],
+            peeCount: 0,
+            poopCount: 0,
+            sickEntries: [entry]
+          });
+        }
+      }
+    },
+    
+    updateSickEntry: (state, action: PayloadAction<{ profileId: string; entry: SickEntry }>) => {
+      const { profileId, entry } = action.payload;
+      const existingRecords = state.dailyRecords[profileId] || [];
+      
+      existingRecords.forEach(record => {
+        if (record.sickEntries) {
+          const entryIndex = record.sickEntries.findIndex(e => e.id === entry.id);
+          if (entryIndex !== -1) {
+            record.sickEntries[entryIndex] = entry;
+          }
+        }
+      });
+    },
+    
+    removeSickEntry: (state, action: PayloadAction<{ profileId: string; entryId: string }>) => {
+      const { profileId, entryId } = action.payload;
+      const existingRecords = state.dailyRecords[profileId] || [];
+      
+      existingRecords.forEach(record => {
+        if (record.sickEntries) {
+          record.sickEntries = record.sickEntries.filter(entry => entry.id !== entryId);
+        }
+      });
+    },
+    
     setLanguage: (state, action: PayloadAction<'en' | 'id'>) => {
       state.language = action.payload;
     },
@@ -138,6 +199,9 @@ export const {
   addDiaperEntry,
   updateDiaperEntry,
   removeDiaperEntry,
+  addSickEntry,
+  updateSickEntry,
+  removeSickEntry,
   setLanguage,
 } = appSlice.actions;
 

@@ -26,12 +26,29 @@ export interface DiaperEntry {
   createdAt: string;
 }
 
+export interface SickEntry {
+  id: string;
+  startDate: string;
+  endDate: string;
+  symptoms: SickSymptom[];
+  notes?: string;
+  createdAt: string;
+}
+
+export interface SickSymptom {
+  id: string;
+  type: 'fever' | 'vomit' | 'weak' | 'dizzy' | 'cough' | 'runny_nose' | 'rash' | 'diarrhea' | 'constipation' | 'other';
+  severity: 'mild' | 'moderate' | 'severe';
+  notes?: string;
+}
+
 export interface DailyRecord {
   date: string;
   weight?: WeightEntry;
   diaperEntries: DiaperEntry[];
   peeCount: number;
   poopCount: number;
+  sickEntries: SickEntry[];
 }
 
 export interface AppState {
@@ -61,4 +78,4 @@ export interface DiaperAnalysis {
   diarrheaRisk: boolean;
 }
 
-export type NavigationTab = 'home' | 'weight' | 'pee' | 'poop' | 'summary' | 'settings';
+export type NavigationTab = 'home' | 'weight' | 'diaper' | 'sick' | 'summary' | 'settings';
