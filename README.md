@@ -2,6 +2,8 @@
 
 A comprehensive mobile-friendly web application for tracking your baby's daily health metrics, built with Next.js and TypeScript.
 
+🌐 **Live Demo**: [https://baby-daily.netlify.app/](https://baby-daily.netlify.app/)
+
 ## Features
 
 ### 👶 Profile Management

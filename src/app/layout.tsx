@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://baby-daily-notes.vercel.app'),
+  metadataBase: new URL('https://baby-daily.netlify.app'),
   alternates: {
     canonical: '/',
     languages: {
@@ -44,15 +44,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://baby-daily-notes.vercel.app',
+    url: 'https://baby-daily.netlify.app',
     title: 'Baby Daily Notes - Track Your Baby\'s Health',
-    description: 'Track your baby\'s weight, diaper changes, and health with detailed analytics and insights.',
+    description: 'Track your baby\'s daily weight, diaper changes, and health patterns',
     siteName: 'Baby Daily Notes',
     images: [
       {
-        url: '/assets/images/screenshots/screenshot-desktop.png',
-        width: 1280,
-        height: 720,
+        url: '/assets/images/screenshots/screenshot-mobile.png',
+        width: 375,
+        height: 812,
         alt: 'Baby Daily Notes - Health Tracking App',
       },
     ],
@@ -60,8 +60,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Baby Daily Notes - Track Your Baby\'s Health',
-    description: 'Track your baby\'s weight, diaper changes, and health with detailed analytics and insights.',
-    images: ['/assets/images/screenshots/screenshot-desktop.png'],
+    description: 'Track your baby\'s daily weight, diaper changes, and health patterns',
+    images: ['/assets/images/screenshots/screenshot-mobile.png'],
     creator: '@babydailynotes',
   },
   robots: {
@@ -109,6 +109,14 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#ec4899" />
         <meta name="msapplication-tap-highlight" content="no" />
         <meta name="theme-color" content="#ec4899" />
+        
+        {/* Additional Open Graph Meta Tags */}
+        <meta property="og:image" content="https://baby-daily.netlify.app/assets/images/screenshots/screenshot-mobile.png" />
+        <meta property="og:image:width" content="375" />
+        <meta property="og:image:height" content="812" />
+        <meta property="og:image:alt" content="Baby Daily Notes - Health Tracking App" />
+        <meta property="og:site_name" content="Baby Daily Notes" />
+        <meta property="og:type" content="website" />
         
         {/* Apple Touch Icons */}
         <link rel="apple-touch-icon" href="/assets/images/icons/ios/180.png" />

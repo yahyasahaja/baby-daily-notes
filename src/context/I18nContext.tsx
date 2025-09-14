@@ -42,6 +42,7 @@ const translations = {
     
     // Weight
     'weight.today': 'Today\'s Weight',
+    'weight.latest': 'Latest Weight',
     'weight.enter': 'Enter Weight',
     'weight.kg': 'kg',
     'weight.status': 'Weight Status',
@@ -220,6 +221,8 @@ const translations = {
     'sickDuration': 'Sick Duration',
     'daysSick': 'days sick',
     'sickPeriods': 'Sick Periods',
+    'noData': 'No data available',
+    'addFirstWeight': 'Add your first weight entry',
     
     // Common translations
     'home': 'Home',
@@ -267,6 +270,7 @@ const translations = {
     
     // Weight
     'weight.today': 'Berat Badan Hari Ini',
+    'weight.latest': 'Berat Badan Terbaru',
     'weight.enter': 'Masukkan Berat Badan',
     'weight.kg': 'kg',
     'weight.status': 'Status Berat Badan',
@@ -445,6 +449,8 @@ const translations = {
     'sickDuration': 'Durasi Sakit',
     'daysSick': 'hari sakit',
     'sickPeriods': 'Periode Sakit',
+    'noData': 'Tidak ada data tersedia',
+    'addFirstWeight': 'Tambahkan entri berat badan pertama',
     
     // Common translations
     'home': 'Beranda',

@@ -145,14 +145,14 @@ export default function WeightTracker() {
         </div>
 
         {/* Today's Weight */}
-        {todayWeight ? (
+        {weightEntries.length > 0 ? (
           <div className="bg-gradient-to-r from-pink-500 to-blue-500 rounded-xl p-6 text-white mb-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-pink-100 text-sm">{t('weight.today')}</p>
-                <p className="text-3xl font-bold">{todayWeight.weight}g</p>
+                <p className="text-pink-100 text-sm">{todayWeight ? t('weight.today') : t('weight.latest')}</p>
+                <p className="text-3xl font-bold">{(todayWeight || weightEntries[weightEntries.length - 1]).weight}g</p>
                 <p className="text-pink-100 text-sm">
-                  {formatDate(todayWeight.date)}
+                  {formatDate((todayWeight || weightEntries[weightEntries.length - 1]).date)}
                 </p>
                 {selectedProfile && (
                   <div className="mt-2 text-xs text-pink-200">
