@@ -41,8 +41,8 @@ export default function BottomNavigation({ activeTab }: BottomNavigationProps) {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 safe-area-pb">
-      <div className="flex justify-around items-center max-w-md mx-auto">
+    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-1 safe-area-pb">
+      <div className="flex justify-between items-center max-w-md mx-auto">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const active = isActive(tab);
@@ -51,14 +51,14 @@ export default function BottomNavigation({ activeTab }: BottomNavigationProps) {
               key={tab.id}
               onClick={() => handleTabClick(tab)}
               className={cn(
-                'flex flex-col items-center py-2 px-3 rounded-lg transition-colors',
+                'flex flex-col items-center py-1 px-1 rounded-lg transition-colors flex-1 min-w-0',
                 active
                   ? 'text-pink-600 bg-pink-50'
                   : 'text-gray-500 hover:text-gray-700'
               )}
             >
-              <Icon className={cn('w-5 h-5 mb-1', active && 'text-pink-600')} />
-              <span className="text-xs font-medium">{tab.label}</span>
+              <Icon className={cn('w-4 h-4 mb-0.5', active && 'text-pink-600')} />
+              <span className="text-[10px] font-medium truncate w-full text-center leading-tight">{tab.label}</span>
             </button>
           );
         })}

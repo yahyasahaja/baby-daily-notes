@@ -19,30 +19,32 @@ export default function ProfileSelector({ onProfileSelect }: ProfileSelectorProp
   const [newProfile, setNewProfile] = useState({
     name: '',
     dateOfBirth: '',
+    birthWeight: '',
     gender: 'male' as 'male' | 'female',
     picture: ''
   });
 
   const handleAddProfile = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newProfile.name || !newProfile.dateOfBirth) return;
+    if (!newProfile.name || !newProfile.dateOfBirth || !newProfile.birthWeight) return;
 
     const profile: Profile = {
       id: Date.now().toString(),
       name: newProfile.name,
       dateOfBirth: newProfile.dateOfBirth,
+      birthWeight: parseFloat(newProfile.birthWeight),
       gender: newProfile.gender,
       picture: newProfile.picture || undefined,
       createdAt: new Date().toISOString()
     };
 
     dispatch(addProfile(profile));
-    setNewProfile({ name: '', dateOfBirth: '', gender: 'male', picture: '' });
+    setNewProfile({ name: '', dateOfBirth: '', birthWeight: '', gender: 'male', picture: '' });
     setShowAddForm(false);
   };
 
   return (
-    <div className="bg-gradient-to-br from-pink-50 to-blue-50 p-4">
+    <div className="bg-gradient-to-br from-pink-50 to-blue-50 p-4 pb-24">
       <div className="max-w-md mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-800 mb-2">
@@ -112,6 +114,18 @@ export default function ProfileSelector({ onProfileSelect }: ProfileSelectorProp
                 type="date"
                 value={newProfile.dateOfBirth}
                 onChange={(e) => setNewProfile({ ...newProfile, dateOfBirth: e.target.value })}
+                required
+              />
+
+              <Input
+                label="Birth Weight (grams)"
+                type="number"
+                step="10"
+                min="500"
+                max="6000"
+                value={newProfile.birthWeight}
+                onChange={(e) => setNewProfile({ ...newProfile, birthWeight: e.target.value })}
+                placeholder="e.g., 3200"
                 required
               />
 

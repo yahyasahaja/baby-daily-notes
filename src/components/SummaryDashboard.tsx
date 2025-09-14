@@ -5,8 +5,9 @@ import { useAppSelector } from '@/store/hooks';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts';
 import { AlertTriangle, CheckCircle, Scale, Baby, Heart, Calendar, TrendingUp, BarChart3 } from 'lucide-react';
 import { cn } from '@/utils/cn';
-import { calculateWeightGain, analyzeDiaperPatterns, groupByWeek, groupByMonth, formatDate } from '@/utils/calculations';
+import { calculateWeightGain, analyzeDiaperPatterns, groupByWeek, groupByMonth, formatDate, calculateDetailedAge, formatDetailedAge } from '@/utils/calculations';
 import { getWeightStatus, calculateAgeInMonths } from '@/data/babyStandards';
+import { useI18n } from '@/context/I18nContext';
 
 type DataType = 'weight' | 'diaper' | 'sick';
 type TimePeriod = 'weekly' | 'monthly';
@@ -15,6 +16,7 @@ export default function SummaryDashboard() {
   const [activeDataType, setActiveDataType] = useState<DataType>('weight');
   const [activeTimePeriod, setActiveTimePeriod] = useState<TimePeriod>('weekly');
   const { selectedProfileId, profiles, dailyRecords } = useAppSelector((state) => state.app);
+  const { t } = useI18n();
   
   const selectedProfile = profiles.find(p => p.id === selectedProfileId);
   const profileDailyRecords = selectedProfile ? dailyRecords[selectedProfile.id] || [] : [];
@@ -86,9 +88,10 @@ export default function SummaryDashboard() {
   }
 
   const ageInMonths = calculateAgeInMonths(new Date(selectedProfile.dateOfBirth));
+  const detailedAge = calculateDetailedAge(new Date(selectedProfile.dateOfBirth));
   const weightGain = calculateWeightGain(weightEntries, ageInMonths);
   const latestWeight = weightEntries[weightEntries.length - 1];
-  const weightStatus = latestWeight ? getWeightStatus(latestWeight.weight, ageInMonths, selectedProfile.gender) : null;
+  const weightStatus = latestWeight ? getWeightStatus(latestWeight.weight, ageInMonths, selectedProfile.gender, selectedProfile.birthWeight) : null;
 
   // Prepare chart data
   const weightChartData = weightEntries.map(entry => ({
@@ -126,7 +129,7 @@ export default function SummaryDashboard() {
           return {
             period: week.split('-W')[1],
             value: avgWeight,
-            label: 'Weight (kg)'
+            label: 'Weight (g)'
           };
         }).slice(-8);
       } else {
@@ -138,7 +141,7 @@ export default function SummaryDashboard() {
           return {
             period: month.split('-')[1],
             value: avgWeight,
-            label: 'Weight (kg)'
+            label: 'Weight (g)'
           };
         }).slice(-6);
       }
@@ -198,7 +201,7 @@ export default function SummaryDashboard() {
         <div className="bg-gradient-to-r from-pink-500 to-blue-500 rounded-xl p-4 text-white mb-6">
           <h2 className="text-lg font-semibold mb-1">{selectedProfile.name}</h2>
           <p className="text-pink-100 text-sm">
-            {ageInMonths} months old • {selectedProfile.gender === 'male' ? 'Boy' : 'Girl'}
+            {formatDetailedAge(detailedAge, t)} • {selectedProfile.gender === 'male' ? 'Boy' : 'Girl'}
           </p>
         </div>
 
@@ -341,7 +344,7 @@ export default function SummaryDashboard() {
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600">Current Weight:</span>
-                  <span className="text-xl font-bold text-gray-800">{latestWeight.weight} kg</span>
+                  <span className="text-xl font-bold text-gray-800">{latestWeight.weight}g</span>
                 </div>
                 
                 <div className="flex justify-between items-center">

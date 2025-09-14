@@ -4,11 +4,13 @@ import React from 'react';
 import { useAppSelector } from '@/store/hooks';
 import { Scale, Droplets, Baby, AlertTriangle, CheckCircle, Calendar } from 'lucide-react';
 import { cn } from '@/utils/cn';
-import { calculateWeightGain, analyzeDiaperPatterns, formatDate } from '@/utils/calculations';
+import { calculateWeightGain, analyzeDiaperPatterns, formatDate, calculateDetailedAge, formatDetailedAge } from '@/utils/calculations';
 import { getWeightStatus, calculateAgeInMonths } from '@/data/babyStandards';
+import { useI18n } from '@/context/I18nContext';
 
 export default function HomeDashboard() {
   const { selectedProfileId, profiles, dailyRecords } = useAppSelector((state) => state.app);
+  const { t } = useI18n();
   
   const selectedProfile = profiles.find(p => p.id === selectedProfileId);
   const profileDailyRecords = selectedProfile ? dailyRecords[selectedProfile.id] || [] : [];
@@ -37,8 +39,9 @@ export default function HomeDashboard() {
   }
 
   const ageInMonths = calculateAgeInMonths(new Date(selectedProfile.dateOfBirth));
+  const detailedAge = calculateDetailedAge(new Date(selectedProfile.dateOfBirth));
   const latestWeight = weightEntries[weightEntries.length - 1];
-  const weightStatus = latestWeight ? getWeightStatus(latestWeight.weight, ageInMonths, selectedProfile.gender) : null;
+  const weightStatus = latestWeight ? getWeightStatus(latestWeight.weight, ageInMonths, selectedProfile.gender, selectedProfile.birthWeight) : null;
   const weightGain = calculateWeightGain(weightEntries, ageInMonths);
 
   const todayStats = {
@@ -57,7 +60,7 @@ export default function HomeDashboard() {
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-800 mb-2">Welcome back!</h1>
           <p className="text-gray-600">
-            {selectedProfile.name} • {ageInMonths} months old
+            {selectedProfile.name} • {formatDetailedAge(detailedAge, t)}
           </p>
         </div>
 
@@ -137,7 +140,7 @@ export default function HomeDashboard() {
               <Scale className="w-6 h-6 text-pink-200 mx-auto mb-2" />
               <p className="text-pink-100 text-xs">Weight</p>
               <p className="text-lg font-bold">
-                {todayStats.weight ? `${todayStats.weight} kg` : 'Not recorded'}
+                {todayStats.weight ? `${todayStats.weight}g` : 'Not recorded'}
               </p>
             </div>
           </div>
@@ -191,7 +194,7 @@ export default function HomeDashboard() {
                 <Scale className="w-4 h-4 text-pink-500" />
                 <div>
                   <p className="text-sm font-medium text-gray-800">
-                    Weight recorded: {todayRecord.weight.weight} kg
+                    Weight recorded: {todayRecord.weight.weight}g
                   </p>
                   <p className="text-xs text-gray-600">
                     {formatDate(todayRecord.weight.date)}

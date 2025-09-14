@@ -69,6 +69,28 @@ const appSlice = createSlice({
       }
     },
     
+    updateWeightEntry: (state, action: PayloadAction<{ profileId: string; entry: WeightEntry }>) => {
+      const { profileId, entry } = action.payload;
+      const existingRecords = state.dailyRecords[profileId] || [];
+      const recordIndex = existingRecords.findIndex(r => r.date === entry.date);
+      
+      if (recordIndex >= 0) {
+        // Update existing record
+        state.dailyRecords[profileId][recordIndex].weight = entry;
+      }
+    },
+    
+    deleteWeightEntry: (state, action: PayloadAction<{ profileId: string; entryId: string }>) => {
+      const { profileId, entryId } = action.payload;
+      const existingRecords = state.dailyRecords[profileId] || [];
+      
+      existingRecords.forEach(record => {
+        if (record.weight && record.weight.id === entryId) {
+          record.weight = undefined;
+        }
+      });
+    },
+    
     addDiaperEntry: (state, action: PayloadAction<{ profileId: string; entry: DiaperEntry }>) => {
       const { profileId, entry } = action.payload;
       const existingRecords = state.dailyRecords[profileId] || [];
@@ -196,6 +218,8 @@ export const {
   selectProfile,
   setDailyRecords,
   addWeightEntry,
+  updateWeightEntry,
+  deleteWeightEntry,
   addDiaperEntry,
   updateDiaperEntry,
   removeDiaperEntry,

@@ -39,9 +39,9 @@ export function calculateWeightGain(
   }
 
   return {
-    daily: Math.round(dailyGain * 100) / 100,
-    weekly: Math.round(weeklyGain * 100) / 100,
-    monthly: Math.round(monthlyGain * 100) / 100,
+    daily: Math.round(dailyGain),
+    weekly: Math.round(weeklyGain),
+    monthly: Math.round(monthlyGain),
     status
   };
 }
@@ -119,8 +119,8 @@ export function getWeightTrend(weightEntries: WeightEntry[]): 'increasing' | 'de
   const last = recent[recent.length - 1].weight;
   const diff = last - first;
 
-  if (diff > 0.1) return 'increasing';
-  if (diff < -0.1) return 'decreasing';
+  if (diff > 100) return 'increasing';
+  if (diff < -100) return 'decreasing';
   return 'stable';
 }
 
@@ -180,4 +180,59 @@ export function groupByMonth(records: DailyRecord[]): { [month: string]: DailyRe
     acc[monthKey].push(record);
     return acc;
   }, {} as { [month: string]: DailyRecord[] });
+}
+
+export interface DetailedAge {
+  months: number;
+  days: number;
+  totalDays: number;
+}
+
+export function calculateDetailedAge(dateOfBirth: Date): DetailedAge {
+  const now = new Date();
+  const birthDate = new Date(dateOfBirth);
+  
+  // Calculate total days
+  const totalDays = Math.floor((now.getTime() - birthDate.getTime()) / (1000 * 60 * 60 * 24));
+  
+  // Calculate months and remaining days
+  let months = 0;
+  let days = 0;
+  
+  // Start from birth date and add months until we exceed current date
+  let currentDate = new Date(birthDate);
+  
+  while (currentDate <= now) {
+    const nextMonth = new Date(currentDate);
+    nextMonth.setMonth(nextMonth.getMonth() + 1);
+    
+    if (nextMonth <= now) {
+      months++;
+      currentDate = nextMonth;
+    } else {
+      // Calculate remaining days
+      days = Math.floor((now.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
+      break;
+    }
+  }
+  
+  return {
+    months: Math.max(0, months),
+    days: Math.max(0, days),
+    totalDays: Math.max(0, totalDays)
+  };
+}
+
+export function formatDetailedAge(age: DetailedAge, t: (key: string) => string): string {
+  const { months, days } = age;
+  
+  if (months === 0) {
+    return `${t('age')}: ${days} ${days === 1 ? t('day') : t('days')}`;
+  }
+  
+  if (days === 0) {
+    return `${t('age')}: ${months} ${months === 1 ? t('month') : t('months')}`;
+  }
+  
+  return `${t('age')}: ${months} ${months === 1 ? t('month') : t('months')} ${days} ${days === 1 ? t('day') : t('days')}`;
 }

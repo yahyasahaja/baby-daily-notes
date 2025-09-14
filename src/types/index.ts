@@ -2,6 +2,7 @@ export interface Profile {
   id: string;
   name: string;
   dateOfBirth: string;
+  birthWeight: number; // in grams
   gender: 'male' | 'female';
   picture?: string;
   createdAt: string;
