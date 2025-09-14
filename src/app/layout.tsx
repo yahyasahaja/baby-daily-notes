@@ -88,6 +88,7 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -101,7 +102,7 @@ export default function RootLayout({
         {/* PWA Meta Tags */}
         <meta name="application-name" content="Baby Daily Notes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Baby Daily Notes" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
@@ -135,12 +136,12 @@ export default function RootLayout({
       >
         <ReduxProvider>
           <I18nProvider>
-            <div className="min-h-screen bg-gray-50">
-              {children}
-              <BottomNavigation />
-              <ServiceWorkerRegistration />
-              <PWAInstallPrompt />
-            </div>
+        <div className="min-h-screen bg-gray-50 pb-safe">
+          {children}
+          <BottomNavigation />
+          <ServiceWorkerRegistration />
+          <PWAInstallPrompt />
+        </div>
           </I18nProvider>
         </ReduxProvider>
       </body>

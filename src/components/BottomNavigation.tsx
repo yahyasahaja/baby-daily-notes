@@ -41,7 +41,7 @@ export default function BottomNavigation({ activeTab }: BottomNavigationProps) {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-1 safe-area-pb">
+    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-1 ios-safe-area">
       <div className="flex justify-between items-center max-w-md mx-auto">
         {tabs.map((tab) => {
           const Icon = tab.icon;
